@@ -40,7 +40,7 @@ body{background:radial-gradient(ellipse at 50% -25%,rgba(44,94,112,.28),transpar
 .nav{gap:8px;padding:6px;background:rgba(9,17,29,.76);border:1px solid rgba(123,157,190,.15);border-radius:16px}
 .nav button{min-height:44px;background:transparent;border-color:transparent;color:#9aacc3;border-radius:11px;font-weight:650;transition:background .2s,border-color .2s,color .2s}
 .nav button.active{background:linear-gradient(135deg,rgba(85,214,194,.2),rgba(85,214,194,.07));color:#c9fff5;border:1px solid rgba(85,214,194,.27);box-shadow:inset 0 1px rgba(255,255,255,.04)}
-.nav-icon{display:none}
+.nav-icon{display:inline-block;margin-right:7px;vertical-align:-1px}
 button,select{min-height:40px;background:#142238;border:1px solid #2b405b;border-radius:11px;transition:transform .15s,border-color .15s,background .15s}
 button:hover,select:hover{border-color:var(--cyan)}
 button:active{transform:scale(.98)}
@@ -141,11 +141,20 @@ body[data-theme=light] button.active{background:#dcefeb;border-color:#9bcfc6}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 
+
+/* Hybrid layout: desktop dashboard navigation, mobile app navigation */
+@media(min-width:701px){
+ .nav{display:flex;align-items:center}
+ .nav button{min-height:46px}
+ .nav-icon{font-size:15px}
+ .gauges{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
 </style>
 </head>
 <body>
 <div class="wrap">
- <header class="top"><div><div class="brand">NETSPEED <span>PRO</span></div><div class="note">DARK PREMIUM · INTERNET DIAGNOSTICS</div></div><div style="display:flex;gap:8px;align-items:center"><button id="themeToggle">☀ Светлая</button><div class="ver">v1.9</div></div></header><nav class="nav"><button class="active" data-tab="test"><span class="nav-icon">◉</span><span class="nav-label">Тест</span></button><button data-tab="analytics"><span class="nav-icon">▥</span><span class="nav-label">Аналитика</span></button><button data-tab="score"><span class="nav-icon">✦</span><span class="nav-label">Оценка</span></button><button data-tab="result"><span class="nav-icon">▣</span><span class="nav-label">Результат</span></button></nav>
+ <header class="top"><div><div class="brand">NETSPEED <span>PRO</span></div><div class="note">DARK PREMIUM · HYBRID EXPERIENCE</div></div><div style="display:flex;gap:8px;align-items:center"><button id="themeToggle">☀ Светлая</button><div class="ver">v1.9</div></div></header><nav class="nav"><button class="active" data-tab="test"><span class="nav-icon">◉</span><span class="nav-label">Тест</span></button><button data-tab="analytics"><span class="nav-icon">▥</span><span class="nav-label">Аналитика</span></button><button data-tab="score"><span class="nav-icon">✦</span><span class="nav-label">Оценка</span></button><button data-tab="result"><span class="nav-icon">▣</span><span class="nav-label">Результат</span></button></nav>
  <section class="panel" data-section="test">
   <div class="controls">
    <div class="group"><span class="label">Потоки</span><button class="stream active" data-stream="auto">AUTO</button><button class="stream" data-stream="1">1</button><button class="stream" data-stream="2">2</button><button class="stream" data-stream="4">4</button><button class="stream" data-stream="6">6</button></div>
