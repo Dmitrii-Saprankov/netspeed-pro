@@ -158,13 +158,13 @@ body[data-theme=light] button.active{background:#dcefeb;border-color:#9bcfc6}
  <section class="panel" data-section="test">
   <div class="controls"><div class="actions"><button id="start" class="primary">Начать тест</button><button id="stop" class="stop" disabled>Стоп</button></div></div>
   <div class="gauge-card single-gauge-card"><div class="metric-switch"><button class="metric active" data-metric="down">DOWNLOAD</button><button class="metric" data-metric="up">UPLOAD</button></div><div class="gauge down" id="gaugeDown"><div class="gauge-inner"><div class="speed" id="downSpeed">—</div><div class="unit">Мбит/с</div></div></div><div class="note" id="gaugeCaption">Скорость загрузки</div><span id="upSpeed" hidden>—</span></div>
+  <canvas class="chart" id="chart" width="1000" height="220"></canvas>
   <div class="stats">
    <div class="stat"><small>Ping (HTTP)</small><strong id="ping">— ms</strong></div>
    <div class="stat"><small>Jitter</small><strong id="jitter">— ms</strong></div>
    <div class="stat"><small>Стабильность</small><strong id="stability">—</strong></div>
    <div class="stat"><small>Потеря IP-пакетов</small><strong id="packetLoss">Не измеряется</strong></div>
   </div>
-  <canvas class="chart" id="chart" width="1000" height="220"></canvas>
   <div class="progress"><div class="bar" id="bar"></div></div><div class="status" id="status">Готов к тестированию. Для корректной работы откройте страницу через HTTPS или localhost.</div>
  </section>
  <section class="panel" data-section="analytics">
