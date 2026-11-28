@@ -13,7 +13,7 @@
 .controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px}.group{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.label{font-size:12px;color:var(--muted);margin-right:3px}
 button,select{font:inherit;color:var(--txt);background:#121e35;border:1px solid #304366;border-radius:10px;padding:9px 13px;cursor:pointer}button:hover,select:hover{border-color:var(--cyan)}button.active{background:#123849;border-color:var(--cyan);box-shadow:0 0 14px #35e7ff25}button:disabled{opacity:.42;cursor:not-allowed}
 .primary{background:linear-gradient(100deg,#0c91ad,#6b39b5);border:0;font-weight:800;padding:13px 28px;min-width:155px}.stop{border-color:#8d3d59;color:#ff9bad}.actions{margin-left:auto;display:flex;gap:9px}
-.gauges{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}.gauge-card{background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:18px;text-align:center}.gauge{width:min(230px,65vw);aspect-ratio:1;margin:6px auto 12px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--c) 0deg,#25314b 0deg);transition:background .15s}.gauge:before{content:"";position:absolute;inset:11px;border-radius:50%;background:#0d1425;border:1px solid #263450}.gauge-inner{position:relative;z-index:1}.speed{font-size:clamp(30px,5vw,43px);font-weight:850;letter-spacing:-.04em;font-variant-numeric:tabular-nums}.unit{color:var(--muted);font-size:13px}.gauge-name{font-size:14px;font-weight:800;letter-spacing:.12em}.down{--c:var(--cyan)}.up{--c:var(--pink)}
+.gauges{display:grid;grid-template-columns:1fr;gap:18px;margin-top:20px}.single-gauge-card{max-width:430px;width:100%;margin:18px auto;text-align:center}.metric-switch{display:flex;justify-content:center;gap:8px}.metric-switch button{min-width:120px}.metric-switch button.active{background:rgba(85,214,194,.13);border-color:var(--cyan)}.gauge-card{background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:18px;text-align:center}.gauge{width:min(230px,65vw);aspect-ratio:1;margin:6px auto 12px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--c) 0deg,#25314b 0deg);transition:background .15s}.gauge:before{content:"";position:absolute;inset:11px;border-radius:50%;background:#0d1425;border:1px solid #263450}.gauge-inner{position:relative;z-index:1}.speed{font-size:clamp(30px,5vw,43px);font-weight:850;letter-spacing:-.04em;font-variant-numeric:tabular-nums}.unit{color:var(--muted);font-size:13px}.gauge-name{font-size:14px;font-weight:800;letter-spacing:.12em}.down{--c:var(--cyan)}.up{--c:var(--pink)}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}.stat{background:#0c1425;border:1px solid var(--line);border-radius:13px;padding:12px}.stat small{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.stat strong{font-size:19px;font-variant-numeric:tabular-nums}
 .progress{height:7px;background:#202c45;border-radius:99px;overflow:hidden;margin-top:16px}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--pink));transition:width .2s}
 .status{color:var(--muted);font-size:13px;margin-top:9px;min-height:20px}.chart{width:100%;height:150px;display:block;background:#0a1120;border:1px solid var(--line);border-radius:13px;margin-top:14px}
@@ -36,7 +36,7 @@ body{background:radial-gradient(ellipse at 50% -25%,rgba(44,94,112,.28),transpar
 .brand{font-size:23px;letter-spacing:.1em}
 .brand span{color:var(--cyan)}
 .ver{background:rgba(85,214,194,.08);border-color:rgba(85,214,194,.25);color:#9ce9dd}
-.panel{background:linear-gradient(145deg,rgba(17,29,47,.97),rgba(12,21,36,.98));border:1px solid rgba(123,157,190,.17);border-radius:22px;padding:24px;box-shadow:var(--shadow);margin-bottom:18px}
+.panel{background:linear-gradient(145deg,rgba(17,29,47,.97),rgba(12,21,36,.98));border:1px solid rgba(123,157,190,.17);border-radius:22px;padding:18px 24px 24px;box-shadow:var(--shadow);margin-bottom:18px}.panel-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;text-align:left;background:transparent!important;border:0!important;box-shadow:none!important;padding:4px 0 10px;color:var(--txt);font-weight:750;font-size:16px;min-height:32px}.panel-toggle:hover{color:var(--cyan)}.toggle-mark{font-size:22px;transition:transform .28s ease}.panel-content{overflow:hidden;max-height:none;opacity:1;transition:max-height .38s ease,opacity .28s ease}.panel.collapsed{padding-bottom:12px}.panel.collapsed .panel-toggle{padding-bottom:0}.panel.collapsed .toggle-mark{transform:rotate(-90deg)}
 .nav{gap:8px;padding:6px;background:rgba(9,17,29,.76);border:1px solid rgba(123,157,190,.15);border-radius:16px}
 .nav button{min-height:44px;background:transparent;border-color:transparent;color:#9aacc3;border-radius:11px;font-weight:650;transition:background .2s,border-color .2s,color .2s}
 .nav button.active{background:linear-gradient(135deg,rgba(85,214,194,.2),rgba(85,214,194,.07));color:#c9fff5;border:1px solid rgba(85,214,194,.27);box-shadow:inset 0 1px rgba(255,255,255,.04)}
@@ -78,17 +78,17 @@ body[data-theme=light] button.active{background:#dcefeb;border-color:#9bcfc6}
 @media(max-width:900px){.wrap{max-width:760px;padding:22px 18px 42px}.panel{padding:19px}.controls{gap:12px}.actions{margin-left:0}.two{gap:12px}}
 @media(max-width:700px){
  body{font-size:14px}
- .wrap{padding:14px 12px calc(94px + env(safe-area-inset-bottom))}
+ .wrap{padding:14px 12px calc(142px + env(safe-area-inset-bottom))}
  .top{align-items:center;gap:10px;padding:2px 2px 14px;margin-bottom:12px}
  .brand{font-size:19px}.top .note{font-size:9px;letter-spacing:.08em}
  #themeToggle{font-size:0;min-width:42px;width:42px;height:42px;padding:0}
  #themeToggle:before{content:"◐";font-size:18px}
  .ver{font-size:10px;padding:5px 7px}
- .nav{position:fixed;z-index:50;left:10px;right:10px;bottom:calc(9px + env(safe-area-inset-bottom));margin:0;padding:7px;gap:4px;display:grid;grid-template-columns:repeat(4,1fr);background:rgba(12,22,37,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(145,164,189,.22);border-radius:18px;box-shadow:0 12px 38px rgba(0,0,0,.42)}
- .nav button{min-width:0;min-height:58px;padding:5px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:12px;font-size:10px}
+ .nav{position:fixed;z-index:50;left:10px;right:10px;bottom:calc(9px + env(safe-area-inset-bottom));margin:0;padding:7px;gap:4px;display:grid;grid-template-columns:repeat(3,1fr);background:rgba(12,22,37,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(145,164,189,.22);border-radius:18px;box-shadow:0 12px 38px rgba(0,0,0,.42)}
+ .nav button{min-width:0;min-height:44px;padding:5px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:12px;font-size:10px}
  .nav-icon{display:block;font-size:18px;line-height:1.1}
  .nav-label{display:block;line-height:1.2}
- .panel{padding:16px;border-radius:18px;margin-bottom:12px}
+ .panel{padding:13px 16px 16px;border-radius:18px;margin-bottom:12px}
  .controls{display:grid;grid-template-columns:1fr;gap:13px}
  .group{gap:7px}
  .group .label{width:100%;margin-bottom:1px;font-size:11px}
@@ -96,7 +96,7 @@ body[data-theme=light] button.active{background:#dcefeb;border-color:#9bcfc6}
  .actions{display:grid;grid-template-columns:1fr auto;width:100%;gap:8px}
  .actions button{min-height:48px}
  .primary{min-width:0;padding:12px 16px}
- .gauges{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:15px}
+ .gauges{grid-template-columns:1fr;gap:8px;margin-top:12px}.single-gauge-card .gauge{width:min(65vw,190px)}
  .gauge-card{min-width:0;padding:12px 5px;border-radius:16px}
  .gauge-name{font-size:10px;letter-spacing:.1em}
  .gauge{width:min(42vw,158px);margin:8px auto}
@@ -147,112 +147,32 @@ body[data-theme=light] button.active{background:#dcefeb;border-color:#9bcfc6}
  .nav{display:flex;align-items:center}
  .nav button{min-height:46px}
  .nav-icon{font-size:15px}
- .gauges{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .gauges{grid-template-columns:1fr}
  .stats{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
-
- /* Collapsible cards */
- .panel{overflow:hidden}
- .panel-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 12px}
- .panel-heading-title{font-size:15px;font-weight:800;letter-spacing:-.015em;margin:0;min-width:0}
- .panel-toggle{flex:0 0 34px;width:34px;height:34px;min-height:34px;padding:0;display:grid;place-items:center;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.035);color:var(--text);font-size:18px;line-height:1;transition:transform .2s,background .2s}
- .panel-toggle:hover{background:rgba(53,231,255,.1)}
- .panel-content{min-width:0}
- .panel.is-collapsed .panel-heading{margin-bottom:-22px}
- .panel.is-collapsed .panel-content{display:none}
- .panel-toggle .chevron{display:inline-block;transition:transform .2s}
- .panel.is-collapsed .panel-toggle .chevron{transform:rotate(-90deg)}
-
- 
- /* Automotive single-dial dashboard */
- .speedometer-layout{display:grid;grid-template-columns:minmax(280px,.92fr) minmax(300px,1.08fr);gap:16px;align-items:stretch;margin:16px 0}
- .speedometer-card{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:14px 18px}
- .speedometer{position:relative;width:min(100%,390px);margin:0 auto}
- .speedometer-svg{display:block;width:100%;height:auto;overflow:visible}
- .dial-track{fill:none;stroke:#263a52;stroke-width:13;stroke-linecap:round}
- .dial-active{fill:none;stroke:url(#dialGlow);stroke-width:13;stroke-linecap:round;stroke-dasharray:351.9;stroke-dashoffset:351.9;transition:stroke-dashoffset .22s ease}
- .dial-ticks path{fill:none;stroke:#9bb0c9;stroke-width:3;stroke-linecap:round;opacity:.8}
- .dial-label{fill:var(--muted);font-size:10px;font-weight:700}
- .gauge-needle{transform-origin:160px 190px;transform:rotate(-120deg);transition:transform .22s ease}
- .gauge-needle path{fill:var(--cyan);filter:drop-shadow(0 0 5px #55d6c288)}.gauge-needle circle{fill:#dce8f5;stroke:#334a63;stroke-width:4}
- .speedometer-readout{position:absolute;left:50%;top:66%;transform:translate(-50%,-50%);display:flex;align-items:flex-end;justify-content:center;gap:20px;width:90%;text-align:center}
- .speedometer-main,.speedometer-secondary{display:flex;flex-direction:column;align-items:center;min-width:0}
- .speedometer-main span,.speedometer-secondary span{font-size:10px;font-weight:850;letter-spacing:.12em;color:var(--cyan)}.speedometer-main strong{font-size:clamp(32px,4vw,48px);line-height:1.05;font-weight:900;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
- .speedometer-secondary span{color:var(--pink)}.speedometer-secondary strong{font-size:clamp(20px,2.8vw,29px);line-height:1.15;font-weight:850;font-variant-numeric:tabular-nums}.speedometer-readout small{font-size:10px;color:var(--muted)}
- .speedometer-legend,.chart-legend{display:flex;justify-content:center;gap:18px;color:var(--muted);font-size:11px}.speedometer-legend span,.chart-legend{display:flex;align-items:center;gap:6px}
- .legend-dot{display:inline-block;width:7px;height:7px;border-radius:50%}.download-dot{background:#35e7ff}.upload-dot{background:#ff4fd8}
- .chart-card{min-width:0;background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;justify-content:center}.chart-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;font-weight:850;letter-spacing:.1em;color:var(--muted)}.chart{height:190px;margin-top:8px}
- .panel-heading{cursor:pointer;user-select:none;touch-action:manipulation;display:flex;align-items:center;width:calc(100% + 44px);min-height:54px;padding:12px 22px;margin:-22px -22px 14px;box-sizing:border-box;border-radius:19px 19px 0 0;transition:background .2s ease}.panel-heading:hover{background:rgba(53,231,255,.055)}.panel-heading:focus-visible{outline:2px solid var(--cyan);outline-offset:-3px;border-radius:12px}.panel-heading-title:after{content:none!important}
- .panel-content{overflow:hidden;max-height:5000px;opacity:1;transform:translateY(0);transition:max-height .38s cubic-bezier(.2,.7,.2,1),opacity .25s ease,transform .38s ease}.panel.is-collapsed .panel-content{max-height:0;opacity:0;transform:translateY(-7px);pointer-events:none}.panel.is-collapsed .panel-heading{margin-bottom:0}
- 
- @media(max-width:760px){.speedometer-layout{grid-template-columns:1fr;gap:10px}.speedometer-card{padding:10px}.speedometer{width:min(100%,330px)}.chart-card{padding:12px}.chart{height:145px}.speedometer-readout{gap:15px;top:67%}.speedometer-main strong{font-size:36px}.speedometer-secondary strong{font-size:24px}}
- @media(prefers-reduced-motion:reduce){.panel-content,.panel-heading-title:after,.gauge-needle,.dial-active{transition:none!important}}
-
 </style>
 </head>
 <body>
 <div class="wrap">
- <header class="top"><div><div class="brand">NETSPEED <span>PRO</span></div><div class="note">DARK PREMIUM · HYBRID EXPERIENCE</div></div><div style="display:flex;gap:8px;align-items:center"><button id="themeToggle">☀ Светлая</button><div class="ver">v2.0 Preview</div></div></header><nav class="nav"><button class="active" data-tab="test"><span class="nav-icon">◉</span><span class="nav-label">Тест</span></button><button data-tab="analytics"><span class="nav-icon">▥</span><span class="nav-label">Аналитика</span></button><button data-tab="score"><span class="nav-icon">✦</span><span class="nav-label">Оценка</span></button><button data-tab="result"><span class="nav-icon">▣</span><span class="nav-label">Результат</span></button></nav>
+ <header class="top"><div><div class="brand">NETSPEED <span>PRO</span></div><div class="note">DARK PREMIUM · HYBRID EXPERIENCE</div></div><div style="display:flex;gap:8px;align-items:center"><button id="themeToggle">☀ Светлая</button><div class="ver">v1.9</div></div></header><nav class="nav"><button class="active" data-tab="test"><span class="nav-icon">◉</span><span class="nav-label">Тест</span></button><button data-tab="analytics"><span class="nav-icon">▥</span><span class="nav-label">Аналитика</span></button><button data-tab="score"><span class="nav-icon">✦</span><span class="nav-label">Оценка</span></button><button data-tab="result"><span class="nav-icon">▣</span><span class="nav-label">Результат</span></button><button data-tab="connection"><span class="nav-icon">⌁</span><span class="nav-label">Подключение</span></button><button data-tab="professional"><span class="nav-icon">⚙</span><span class="nav-label">Professional</span></button></nav>
  <section class="panel" data-section="test">
-  <h2 class="section-title">Подключение</h2>
-  <div class="data-grid">
-   <div class="data-item"><small>IP</small><strong id="ip">Определение…</strong></div>
-   <div class="data-item"><small>Провайдер / ASN</small><strong id="isp">—</strong></div>
-   <div class="data-item"><small>Регион</small><strong id="region">—</strong></div>
-   <div class="data-item"><small>Браузерная оценка канала</small><strong id="linkInfo">—</strong></div>
-  </div>
-  <p class="note" id="connectionStatus">Данные подключения будут обновлены при запуске теста.</p>
-  <p class="note">Тестовый endpoint: Cloudflare Speed (Anycast). Это не гарантирует фиксированный город тестового сервера.</p>
- </section>
-<section class="panel" data-section="test">
-  <div class="controls">
-   <div class="actions"><button id="start" class="primary">Начать тест</button><button id="stop" class="stop" disabled>Стоп</button><button id="openProfessional">⚙ Professional</button></div>
-  </div>
-  <div class="speedometer-layout">
-    <div class="gauge-card speedometer-card">
-     <div class="gauge-name">LIVE SPEED</div>
-     <div class="speedometer" id="speedometer">
-      <svg class="speedometer-svg" viewBox="0 0 320 250" role="img" aria-label="Автомобильный спидометр скорости интернета">
-       <defs><linearGradient id="dialGlow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#55d6c2"/><stop offset="1" stop-color="#8ba9ff"/></linearGradient></defs>
-       <path class="dial-track" d="M 48 205 A 112 112 0 1 1 272 205"/>
-       <path class="dial-active" id="dialActive" d="M 48 205 A 112 112 0 1 1 272 205"/>
-       <g class="dial-ticks"><path d="M48 205 L62 198 M65 126 L78 132 M112 73 L118 87 M160 57 L160 73 M208 73 L202 87 M255 126 L242 132 M272 205 L258 198"/></g>
-       <g id="gaugeNeedle" class="gauge-needle"><path d="M160 190 L157 83 Q160 74 163 83 L166 190 Z"/><circle cx="160" cy="190" r="12"/></g>
-       <text x="48" y="230" class="dial-label">0</text><text x="160" y="38" text-anchor="middle" class="dial-label">500</text><text x="272" y="230" text-anchor="end" class="dial-label">1000+</text>
-      </svg>
-      <div class="speedometer-readout">
-       <div class="speedometer-main"><span id="gaugeMode">DOWNLOAD</span><strong id="downSpeed">—</strong><small>Мбит/с</small></div>
-       <div class="speedometer-secondary"><span>UPLOAD</span><strong id="upSpeed">—</strong><small>Мбит/с</small></div>
-      </div>
-     </div>
-     <div class="speedometer-legend"><span><i class="legend-dot download-dot"></i>Download</span><span><i class="legend-dot upload-dot"></i>Upload</span></div>
-    </div>
-    <div class="chart-card"><div class="chart-heading"><span>КРИВЫЕ ИЗМЕРЕНИЙ</span><span class="chart-legend"><i class="legend-dot download-dot"></i>↓ <i class="legend-dot upload-dot"></i>↑</span></div><canvas class="chart" id="chart" width="1000" height="220"></canvas></div>
-   </div>
-   <div class="stats">
+  <div class="controls"><div class="actions"><button id="start" class="primary">Начать тест</button><button id="stop" class="stop" disabled>Стоп</button></div></div>
+  <div class="gauge-card single-gauge-card"><div class="metric-switch"><button class="metric active" data-metric="down">DOWNLOAD</button><button class="metric" data-metric="up">UPLOAD</button></div><div class="gauge down" id="gaugeDown"><div class="gauge-inner"><div class="speed" id="downSpeed">—</div><div class="unit">Мбит/с</div></div></div><div class="note" id="gaugeCaption">Скорость загрузки</div><span id="upSpeed" hidden>—</span></div>
+  <div class="stats">
    <div class="stat"><small>Ping (HTTP)</small><strong id="ping">— ms</strong></div>
    <div class="stat"><small>Jitter</small><strong id="jitter">— ms</strong></div>
    <div class="stat"><small>Стабильность</small><strong id="stability">—</strong></div>
    <div class="stat"><small>Потеря IP-пакетов</small><strong id="packetLoss">Не измеряется</strong></div>
   </div>
+  <canvas class="chart" id="chart" width="1000" height="220"></canvas>
   <div class="progress"><div class="bar" id="bar"></div></div><div class="status" id="status">Готов к тестированию. Для корректной работы откройте страницу через HTTPS или localhost.</div>
-  
  </section>
  <section class="panel" data-section="analytics">
   <h2 class="section-title">Результаты повторов</h2>
   <div class="note" id="streamInfo">Потоки: AUTO · метод: медиана 3 повторов</div>
   <div style="overflow-x:auto"><table><thead><tr><th>Повтор</th><th>Download</th><th>Upload</th><th>Время</th></tr></thead><tbody id="repeatRows"><tr><td colspan="4" class="note">Результаты появятся после теста</td></tr></tbody></table></div>
  </section>
- 
-   <section class="panel" data-section="professional">
-   <div class="controls" style="justify-content:space-between;align-items:center"><div><h2 class="section-title" style="margin:0">Professional</h2><p class="note">Ручная настройка тестирования и технические показатели.</p></div><button id="backToTest">← К тесту</button></div>
-   <div class="controls" style="margin-top:16px">
-    <div class="group"><span class="label">Потоки</span><button class="stream active" data-stream="auto">AUTO</button><button class="stream" data-stream="1">1</button><button class="stream" data-stream="2">2</button><button class="stream" data-stream="4">4</button><button class="stream" data-stream="6">6</button></div>
-    <div class="group"><span class="label">Режим</span><button class="mode active" data-mode="economy">Экономичный</button><button class="mode" data-mode="accuracy">Точный</button></div>
-   </div>
-   <p class="note">По умолчанию используются AUTO и экономичный режим. Настройки Professional применяются к следующему запуску теста.</p>
-  </section>
-<section class="panel" data-section="professional">
+ <section class="panel" data-section="connection">
   <h2 class="section-title">Диагностика и трафик</h2>
   <div class="two">
    <div class="data-grid">
@@ -270,11 +190,23 @@ body[data-theme=light] button.active{background:#dcefeb;border-color:#9bcfc6}
   <p class="note" style="margin-top:12px">Размер блоков адаптируется к скорости соединения; искусственного ограничения Мбит/с нет.</p>
   <p class="note" style="margin-top:12px">Ping измеряется HTTP-запросом до тестового endpoint, а не ICMP. Потерю IP-пакетов браузерный тест напрямую не измеряет. HTTP-ошибки — отдельная метрика неуспешных тестовых запросов.</p>
  </section>
+ <section class="panel" data-section="connection">
+  <h2 class="section-title">Подключение</h2>
+  <div class="data-grid">
+   <div class="data-item"><small>IP</small><strong id="ip">Определение…</strong></div>
+   <div class="data-item"><small>Провайдер / ASN</small><strong id="isp">—</strong></div>
+   <div class="data-item"><small>Регион</small><strong id="region">—</strong></div>
+   <div class="data-item"><small>Браузерная оценка канала</small><strong id="linkInfo">—</strong></div>
+  </div>
+  <p class="note" id="connectionStatus">Данные подключения будут обновлены при запуске теста.</p>
+  <p class="note">Тестовый endpoint: Cloudflare Speed (Anycast). Это не гарантирует фиксированный город тестового сервера.</p>
+ </section>
+ <section class="panel" data-section="professional"><h2 class="section-title">Профессиональные настройки</h2><div class="controls"><div class="group"><span class="label">Количество потоков</span><button class="stream active" data-stream="auto">AUTO</button><button class="stream" data-stream="1">1</button><button class="stream" data-stream="2">2</button><button class="stream" data-stream="4">4</button><button class="stream" data-stream="6">6</button></div><div class="group"><span class="label">Точность измерения</span><button class="mode active" data-mode="economy">Экономичный</button><button class="mode" data-mode="accuracy">Точный</button></div></div></section>
  <section class="panel" data-section="analytics">
   <div class="controls" style="justify-content:space-between"><h2 class="section-title" style="margin:0">История на этом устройстве</h2><div class="group"><button id="export">Экспорт CSV</button><button id="clearHistory">Очистить</button></div></div>
   <div style="overflow-x:auto;margin-top:10px"><table><thead><tr><th>Дата</th><th>Download</th><th>Upload</th><th>Ping</th><th>Потоки</th></tr></thead><tbody id="historyRows"><tr><td colspan="5" class="note">История пока пуста</td></tr></tbody></table></div>
  </section>
- <section class="panel" data-section="analytics"><h2 class="section-title">Графики истории</h2><canvas id="historyChart" class="analytics-chart" width="1000" height="260"></canvas><div class="stats"><div class="stat"><small>Средний Download</small><strong id="avgDown">—</strong></div><div class="stat"><small>Средний Upload</small><strong id="avgUp">—</strong></div><div class="stat"><small>Максимальный Download</small><strong id="maxDown">—</strong></div><div class="stat"><small>Тестов</small><strong id="historyCount">0</strong></div></div></section><section class="panel" data-section="score"><h2 class="section-title">Оценка качества интернета</h2><div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap"><div class="score-ring" id="scoreRing"><div class="score-core"><div><strong id="scoreValue" style="font-size:40px">—</strong><div class="note">из 100</div></div></div></div><div style="flex:1;min-width:220px"><h2 id="scoreLabel">Выполните полный тест</h2><p class="note" id="scoreText">Оценка рассчитывается только после всех шести этапов.</p><div id="scoreBreakdown" class="note">Download · Upload · HTTP Ping · стабильность</div></div></div></section><section class="panel" data-section="result"><h2 class="section-title">Карточка результата</h2><div class="result-card" id="shareCard"><div style="letter-spacing:.12em">NETSPEED <span style="color:#35e7ff">PRO</span> <small>v1.9</small></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0"><div><small style="color:#35e7ff">DOWNLOAD</small><strong id="cardDown">—</strong><small>Mbps</small></div><div><small style="color:#ff4fd8">UPLOAD</small><strong id="cardUp">—</strong><small>Mbps</small></div></div><div>Ping <b id="cardPing">—</b> · Jitter <b id="cardJitter">—</b> · Score <b id="cardScore">—</b></div><p class="note" id="cardDate"></p></div><div class="controls" style="justify-content:center;margin-top:14px"><button id="downloadCard" class="primary">Скачать PNG</button><button id="shareCardBtn">Поделиться</button><button id="copyCard">Копировать</button></div><p class="note" id="cardStatus">Карточка появится после полного теста.</p></section><div class="footer">NetSpeed Pro 2.0 · Dark Premium</div>
+ <section class="panel" data-section="analytics"><h2 class="section-title">Графики истории</h2><canvas id="historyChart" class="analytics-chart" width="1000" height="260"></canvas><div class="stats"><div class="stat"><small>Средний Download</small><strong id="avgDown">—</strong></div><div class="stat"><small>Средний Upload</small><strong id="avgUp">—</strong></div><div class="stat"><small>Максимальный Download</small><strong id="maxDown">—</strong></div><div class="stat"><small>Тестов</small><strong id="historyCount">0</strong></div></div></section><section class="panel" data-section="score"><h2 class="section-title">Оценка качества интернета</h2><div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap"><div class="score-ring" id="scoreRing"><div class="score-core"><div><strong id="scoreValue" style="font-size:40px">—</strong><div class="note">из 100</div></div></div></div><div style="flex:1;min-width:220px"><h2 id="scoreLabel">Выполните полный тест</h2><p class="note" id="scoreText">Оценка рассчитывается только после всех шести этапов.</p><div id="scoreBreakdown" class="note">Download · Upload · HTTP Ping · стабильность</div></div></div></section><section class="panel" data-section="result"><h2 class="section-title">Карточка результата</h2><div class="result-card" id="shareCard"><div style="letter-spacing:.12em">NETSPEED <span style="color:#35e7ff">PRO</span> <small>v1.9</small></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0"><div><small style="color:#35e7ff">DOWNLOAD</small><strong id="cardDown">—</strong><small>Mbps</small></div><div><small style="color:#ff4fd8">UPLOAD</small><strong id="cardUp">—</strong><small>Mbps</small></div></div><div>Ping <b id="cardPing">—</b> · Jitter <b id="cardJitter">—</b> · Score <b id="cardScore">—</b></div><p class="note" id="cardDate"></p></div><div class="controls" style="justify-content:center;margin-top:14px"><button id="downloadCard" class="primary">Скачать PNG</button><button id="shareCardBtn">Поделиться</button><button id="copyCard">Копировать</button></div><p class="note" id="cardStatus">Карточка появится после полного теста.</p></section><div class="footer">NetSpeed Pro 1.9 · Dark Premium</div>
 </div>
 <script>
 (()=>{
@@ -290,12 +222,12 @@ const median=a=>{const s=[...a].sort((x,y)=>x-y);return s.length?s[Math.floor(s.
 const fmt=v=>Number.isFinite(v)?(v>=100?v.toFixed(0):v>=10?v.toFixed(1):v.toFixed(2)):'—';
 const bytes=n=>{if(!n)return'0 B';const u=['B','KB','MB','GB'];let i=0;while(n>=1024&&i<u.length-1){n/=1024;i++}return n.toFixed(i?2:0)+' '+u[i]};
 const setStatus=t=>$('status').textContent=t;
-function paintGauge(kind,v){const dial=clamp(v/1000,0,1);$('gaugeNeedle').style.transform=`rotate(${-90+dial*180}deg)`;$('dialActive').style.strokeDashoffset=String(351.9*(1-dial));$('gaugeMode').textContent=kind==='down'?'DOWNLOAD':'UPLOAD';$('gaugeMode').style.color=kind==='down'?'var(--cyan)':'var(--pink)';$(kind==='down'?'downSpeed':'upSpeed').textContent=fmt(v);$('gaugeNeedle').querySelector('path').style.fill=kind==='down'?'var(--cyan)':'var(--pink)'}
+let displayMetric='down',liveSpeeds={down:0,up:0};function paintGauge(kind,v){liveSpeeds[kind]=v;if(kind!==displayMetric)return;const el=$('gaugeDown'),deg=clamp(v/1000*300,0,300);el.className='gauge '+(kind==='down'?'down':'up');el.style.background=`conic-gradient(${kind==='down'?'var(--cyan)':'var(--pink)'} ${deg}deg,#25314b ${deg}deg)`;$('downSpeed').textContent=fmt(v);$('gaugeCaption').textContent=kind==='down'?'Скорость загрузки':'Скорость отдачи'}
 function draw(){const c=$('chart'),ctx=c.getContext('2d'),w=c.width,h=c.height;ctx.clearRect(0,0,w,h);ctx.strokeStyle='#26334c';ctx.lineWidth=1;for(let i=1;i<5;i++){ctx.beginPath();ctx.moveTo(0,h*i/5);ctx.lineTo(w,h*i/5);ctx.stroke()}if(graph.length<2)return;const max=Math.max(10,...graph.map(p=>p.d),...graph.map(p=>p.u))*1.12;for(const [key,color] of [['d','#35e7ff'],['u','#ff4fd8']]){ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=3;graph.forEach((p,i)=>{const x=i/(graph.length-1)*w,y=h-12-p[key]/max*(h-24);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke()}}
 function updateTraffic(){$('downBytes').textContent=bytes(totals.down);$('upBytes').textContent=bytes(totals.up);$('serviceBytes').textContent=bytes(totals.service);$('totalBytes').textContent=bytes(totals.down+totals.up+totals.service)}
 function updateReq(){$('requestCount').textContent=`${req.ok} / ${req.all}`;$('httpErrors').textContent=req.all?`${(req.fail/req.all*100).toFixed(2)}%`:'0%'}
 function recordError(kind,message,status){lastError=`${kind.toUpperCase()}: ${message}${status?` (HTTP ${status})`:''}`;$('lastError').textContent=lastError;$('lastError').className='error'}
-function updateLive(kind,speed,phaseBytes){if(kind==='down')paintGauge('down',speed);else paintGauge('up',speed);$('data-unused');graph.push({d:kind==='down'?speed:(Number($('downSpeed').textContent)||0),u:kind==='up'?speed:(Number($('upSpeed').textContent)||0)});if(graph.length>90)graph.shift();draw();updateTraffic()}
+function updateLive(kind,speed,phaseBytes){paintGauge(kind,speed);$('data-unused');graph.push({d:liveSpeeds.down,u:liveSpeeds.up});if(graph.length>90)graph.shift();draw();updateTraffic()}
 function xhr(kind,size,signal,onProgress){
  return new Promise(resolve=>{
   const x=new XMLHttpRequest();let loaded=0,done=false,ended=false;
@@ -346,7 +278,7 @@ function saveHistory(){try{const a=JSON.parse(localStorage.getItem('nsp15_histor
 function readHistory(){try{return JSON.parse(localStorage.getItem('nsp15_history')||'[]')}catch(e){return []}}function renderHistory(){let a=readHistory();$('historyRows').innerHTML=a.length?a.map(x=>`<tr><td>${new Date(x.date).toLocaleString()}</td><td class="num">${fmt(x.down)} Mbps</td><td class="num">${fmt(x.up)} Mbps</td><td class="num">${x.ping}</td><td>${x.streams}</td></tr>`).join(''):'<tr><td colspan="5" class="note">История пока пуста</td></tr>'}
 async function run(){
  if(running)return;running=true;runId++;const thisRun=runId;controller=new AbortController();const signal=controller.signal;
- $('start').disabled=true;$('stop').disabled=false;trafficBudgetUsed=0;results={down:[],up:[]};req={ok:0,all:0,fail:0};totals={down:0,up:0,service:0};lastError='';$('lastError').textContent='Ошибок пока нет';$('lastError').className='note';graph=[];paintGauge('down',0);paintGauge('up',0);$('ping').textContent='— ms';$('jitter').textContent='— ms';$('stability').textContent='—';$('packetLoss').textContent='Не измеряется';renderRepeats();updateReq();updateTraffic();setProgress(0);
+ $('start').disabled=true;$('stop').disabled=false;trafficBudgetUsed=0;results={down:[],up:[]};req={ok:0,all:0,fail:0};totals={down:0,up:0,service:0};lastError='';$('lastError').textContent='Ошибок пока нет';$('lastError').className='note';graph=[];liveSpeeds={down:0,up:0};paintGauge(displayMetric,0);$('ping').textContent='— ms';$('jitter').textContent='— ms';$('stability').textContent='—';$('packetLoss').textContent='Не измеряется';renderRepeats();updateReq();updateTraffic();setProgress(0);
  try{
   await identify(signal);if(signal.aborted)throw new Error('Остановлено');
   await pingTest(signal);if(signal.aborted)throw new Error('Остановлено');
@@ -365,7 +297,7 @@ async function run(){
    if(u.budgetReached&&u.duration<6500){incomplete=true;break;}results.up.push(u.speed);renderRepeats();setProgress((i*2+2)/6*100);
    if(trafficBudgetUsed>=MAX_TRAFFIC_BYTES&&i<2){incomplete=true;break;}
   }
-  const d=median(results.down),u=median(results.up);paintGauge('down',d);paintGauge('up',u);calcStability();
+  const d=median(results.down),u=median(results.up);liveSpeeds.down=d;liveSpeeds.up=u;paintGauge(displayMetric,liveSpeeds[displayMetric]);calcStability();
   if(incomplete||results.down.length!==3||results.up.length!==3){const done=results.down.length+results.up.length;setStatus(`Тест неполный · достигнут лимит трафика 1 ГБ · завершено ${done} из 6 этапов; результаты не сохранены в историю`);}
   else{setProgress(100);setStatus(`Тест завершён · Download ${fmt(d)} Mbps · Upload ${fmt(u)} Mbps`);renderScore();saveHistory();}
  }catch(e){setStatus(e.message==='Остановлено'?'Тест остановлен':`Ошибка теста: ${e.message}`);calcStability()}
@@ -379,22 +311,9 @@ $('export').addEventListener('click',()=>{let a=[];try{a=JSON.parse(localStorage
 $('clearHistory').addEventListener('click',()=>{if(confirm('Очистить локальную историю тестов?')){localStorage.removeItem('nsp15_history');renderHistory()}});
 async function identify(signal){const status=$('connectionStatus');status.textContent='Обновление IP, провайдера и региона…';status.className='note';$('ip').textContent='Определение…';$('isp').textContent='Определение…';$('region').textContent='Определение…';try{let data;for(const url of ['https://ipwho.is/','https://ipapi.co/json/']){if(signal?.aborted)throw new DOMException('Aborted','AbortError');try{const r=await fetch(url,{cache:'no-store',signal});if(!r.ok)continue;data=await r.json();if(data&&(data.ip||data.ip_address))break}catch(e){if(e.name==='AbortError')throw e}}if(!data)throw new Error('Сервисы определения IP недоступны');$('ip').textContent=data.ip||data.ip_address||'—';$('isp').textContent=data.connection?.isp||data.org||data.org_name||'—';$('region').textContent=[data.city,data.region,data.country].filter(Boolean).join(', ')||'—';status.textContent='Данные подключения обновлены · '+new Date().toLocaleString();}catch(e){if(e.name==='AbortError')throw e;$('ip').textContent='Недоступно';$('isp').textContent='—';$('region').textContent='—';status.textContent='Не удалось обновить данные подключения · '+new Date().toLocaleString();status.className='error'}const conn=navigator.connection||navigator.mozConnection||navigator.webkitConnection;$('linkInfo').textContent=conn?.downlink?`${conn.downlink} Mbps · ${conn.effectiveType||'тип неизвестен'}`:'API браузера недоступен';}
 const conn=navigator.connection||navigator.mozConnection||navigator.webkitConnection;$('linkInfo').textContent=conn?.downlink?`${conn.downlink} Mbps · ${conn.effectiveType||'тип неизвестен'}`:'API браузера недоступен';
-// Add a consistent collapse control to every content card.
- document.querySelectorAll('section.panel').forEach(panel=>{
-  const section=panel.dataset.section||'panel';
-  const heading=panel.querySelector(':scope > h2.section-title')||panel.querySelector('h2.section-title');
-  let title=heading?.textContent?.trim();
-  if(!title){const labels={test:'Тест скорости',professional:'Professional',analytics:'Аналитика',score:'Оценка качества',result:'Результат'};title=labels[section]||'Дополнительно'}
-  if(heading)heading.remove();
-  const content=document.createElement('div');content.className='panel-content';
-  while(panel.firstChild)content.appendChild(panel.firstChild);
-  const bar=document.createElement('div');bar.className='panel-heading';bar.tabIndex=0;bar.setAttribute('role','button');bar.setAttribute('aria-expanded','true');bar.setAttribute('aria-label','Свернуть или развернуть: '+title);
-  const label=document.createElement('h2');label.className='panel-heading-title';label.textContent=title;
-  const toggle=()=>{const collapsed=panel.classList.toggle('is-collapsed');bar.setAttribute('aria-expanded',String(!collapsed));bar.setAttribute('aria-label',(collapsed?'Развернуть: ':'Свернуть: ')+title);const content=panel.querySelector('.panel-content');if(!collapsed){content.style.maxHeight=content.scrollHeight+'px';requestAnimationFrame(()=>{content.style.maxHeight='5000px'})}else{content.style.maxHeight=content.scrollHeight+'px';requestAnimationFrame(()=>{content.style.maxHeight='0px'})}};
-  bar.addEventListener('click',toggle);bar.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}});
-  bar.append(label);panel.append(bar,content);
- });
-renderHistory();draw();renderAnalytics();const savedTheme=localStorage.getItem('nsp19_theme')||'dark';document.body.dataset.theme=savedTheme;$('themeToggle').textContent=savedTheme==='dark'?'☀ Светлая':'☾ Тёмная';$('themeToggle').onclick=()=>{const t=document.body.dataset.theme==='dark'?'light':'dark';document.body.dataset.theme=t;localStorage.setItem('nsp19_theme',t);$('themeToggle').textContent=t==='dark'?'☀ Светлая':'☾ Тёмная'};const showSection=tab=>{document.querySelectorAll('[data-section]').forEach(p=>p.classList.toggle('tab-hidden',p.dataset.section!==tab));document.querySelectorAll('[data-tab]').forEach(z=>z.classList.toggle('active',z.dataset.tab===tab));if(tab==='analytics')renderAnalytics()};document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>showSection(b.dataset.tab));$('openProfessional').onclick=()=>{if(!running)showSection('professional')};$('backToTest').onclick=()=>showSection('test');document.querySelectorAll('[data-section]').forEach(p=>{if(p.dataset.section!=='test')p.classList.add('tab-hidden')});$('downloadCard').onclick=()=>{const c=document.createElement('canvas');c.width=1200;c.height=675;const x=c.getContext('2d');const g=x.createLinearGradient(0,0,1200,675);g.addColorStop(0,'#10182a');g.addColorStop(1,'#28143c');x.fillStyle=g;x.fillRect(0,0,1200,675);x.fillStyle='#eef4ff';x.font='bold 54px Arial';x.fillText('NETSPEED PRO 2.0',70,100);x.font='bold 36px Arial';x.fillStyle='#35e7ff';x.fillText('DOWNLOAD  '+$('cardDown').textContent+' Mbps',80,250);x.fillStyle='#ff4fd8';x.fillText('UPLOAD  '+$('cardUp').textContent+' Mbps',80,340);x.fillStyle='#eef4ff';x.font='28px Arial';x.fillText('Ping '+$('cardPing').textContent+'   Jitter '+$('cardJitter').textContent+'   Score '+$('cardScore').textContent,80,470);x.font='20px Arial';x.fillText($('cardDate').textContent,80,560);c.toBlob(blob=>{if(!blob)return;const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='netspeed-pro-result.png';a.click();URL.revokeObjectURL(u)},'image/png')};$('shareCardBtn').onclick=async()=>{if(!navigator.share){$('cardStatus').textContent='Поделиться можно через скачивание PNG.';return}try{const c=document.createElement('canvas');c.width=1200;c.height=675;const x=c.getContext('2d');x.fillStyle='#10182a';x.fillRect(0,0,1200,675);x.fillStyle='white';x.font='bold 48px Arial';x.fillText('NETSPEED PRO 1.9',70,100);x.font='36px Arial';x.fillText('Download '+$('cardDown').textContent+' Mbps',70,240);x.fillText('Upload '+$('cardUp').textContent+' Mbps',70,330);const blob=await new Promise(r=>c.toBlob(r,'image/png'));const file=new File([blob],'netspeed-pro-result.png',{type:'image/png'});if(navigator.canShare?.({files:[file]}))await navigator.share({files:[file],title:'NetSpeed Pro'});else $('cardStatus').textContent='Браузер не поддерживает отправку PNG; скачайте карточку.'}catch(e){}};$('copyCard').onclick=()=>navigator.clipboard?.writeText('NetSpeed Pro 2.0 | Download '+$('cardDown').textContent+' Mbps | Upload '+$('cardUp').textContent+' Mbps | Ping '+$('cardPing').textContent+' | Score '+$('cardScore').textContent);
+renderHistory();draw();renderAnalytics();const savedTheme=localStorage.getItem('nsp19_theme')||'dark';document.body.dataset.theme=savedTheme;$('themeToggle').textContent=savedTheme==='dark'?'☀ Светлая':'☾ Тёмная';$('themeToggle').onclick=()=>{const t=document.body.dataset.theme==='dark'?'light':'dark';document.body.dataset.theme=t;localStorage.setItem('nsp19_theme',t);$('themeToggle').textContent=t==='dark'?'☀ Светлая':'☾ Тёмная'};document.querySelectorAll('[data-metric]').forEach(b=>b.addEventListener('click',()=>{displayMetric=b.dataset.metric;document.querySelectorAll('[data-metric]').forEach(x=>x.classList.toggle('active',x===b));paintGauge(displayMetric,liveSpeeds[displayMetric])}));
+document.querySelectorAll('.panel').forEach(panel=>{const h=panel.querySelector(':scope > .section-title');const label=h?.textContent?.trim()||(panel.dataset.section==='test'?'Тестирование':panel.dataset.section==='professional'?'Профессиональные настройки':panel.dataset.section==='analytics'?'Аналитика':panel.dataset.section==='connection'?'Подключение':'Карточка');const header=document.createElement('button');header.type='button';header.className='panel-toggle';header.setAttribute('aria-expanded','true');header.innerHTML='<span>'+label+'</span><span class="toggle-mark">⌄</span>';const body=document.createElement('div');body.className='panel-content';[...panel.childNodes].forEach(n=>{if(n!==h)body.appendChild(n)});panel.append(header,body);body.style.maxHeight=body.scrollHeight+'px';header.addEventListener('click',()=>{const closed=panel.classList.toggle('collapsed');header.setAttribute('aria-expanded',String(!closed));body.style.maxHeight=closed?'0px':body.scrollHeight+'px';body.style.opacity=closed?'0':'1'});body.addEventListener('transitionend',e=>{if(e.propertyName==='max-height'&&!panel.classList.contains('collapsed'))body.style.maxHeight='none'})});
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(z=>z.classList.toggle('active',z===b));document.querySelectorAll('[data-section]').forEach(p=>p.classList.toggle('tab-hidden',p.dataset.section!==b.dataset.tab));if(b.dataset.tab==='analytics')renderAnalytics()});document.querySelectorAll('[data-section]').forEach(p=>{if(p.dataset.section!=='test')p.classList.add('tab-hidden')});$('downloadCard').onclick=()=>{const c=document.createElement('canvas');c.width=1200;c.height=675;const x=c.getContext('2d');const g=x.createLinearGradient(0,0,1200,675);g.addColorStop(0,'#10182a');g.addColorStop(1,'#28143c');x.fillStyle=g;x.fillRect(0,0,1200,675);x.fillStyle='#eef4ff';x.font='bold 54px Arial';x.fillText('NETSPEED PRO 1.9',70,100);x.font='bold 36px Arial';x.fillStyle='#35e7ff';x.fillText('DOWNLOAD  '+$('cardDown').textContent+' Mbps',80,250);x.fillStyle='#ff4fd8';x.fillText('UPLOAD  '+$('cardUp').textContent+' Mbps',80,340);x.fillStyle='#eef4ff';x.font='28px Arial';x.fillText('Ping '+$('cardPing').textContent+'   Jitter '+$('cardJitter').textContent+'   Score '+$('cardScore').textContent,80,470);x.font='20px Arial';x.fillText($('cardDate').textContent,80,560);c.toBlob(blob=>{if(!blob)return;const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='netspeed-pro-result.png';a.click();URL.revokeObjectURL(u)},'image/png')};$('shareCardBtn').onclick=async()=>{if(!navigator.share){$('cardStatus').textContent='Поделиться можно через скачивание PNG.';return}try{const c=document.createElement('canvas');c.width=1200;c.height=675;const x=c.getContext('2d');x.fillStyle='#10182a';x.fillRect(0,0,1200,675);x.fillStyle='white';x.font='bold 48px Arial';x.fillText('NETSPEED PRO 1.9',70,100);x.font='36px Arial';x.fillText('Download '+$('cardDown').textContent+' Mbps',70,240);x.fillText('Upload '+$('cardUp').textContent+' Mbps',70,330);const blob=await new Promise(r=>c.toBlob(r,'image/png'));const file=new File([blob],'netspeed-pro-result.png',{type:'image/png'});if(navigator.canShare?.({files:[file]}))await navigator.share({files:[file],title:'NetSpeed Pro'});else $('cardStatus').textContent='Браузер не поддерживает отправку PNG; скачайте карточку.'}catch(e){}};$('copyCard').onclick=()=>navigator.clipboard?.writeText('NetSpeed Pro 1.9 | Download '+$('cardDown').textContent+' Mbps | Upload '+$('cardUp').textContent+' Mbps | Ping '+$('cardPing').textContent+' | Score '+$('cardScore').textContent);
 })();
 </script>
 </body></html>
